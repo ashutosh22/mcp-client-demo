@@ -1,0 +1,41 @@
+[build-system]
+# Tells Python how to build your package
+requires = ["setuptools>=61.0.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mcp_agent_platform"
+version = "0.1.0"
+description = "An MCP Client and Agent Orchestration Platform"
+readme = "README.md"
+requires-python = ">=3.10"
+authors = [
+    { name = "Your Name", email = "you@example.com" }
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+# Your application dependencies replace requirements.txt here
+dependencies = [
+    "pydantic>=2.0.0",
+    "mcp>=0.1.0",       # Hypothetical or real MCP SDK dependency
+]
+
+[project.optional-dependencies]
+# Dependencies specifically for development and testing
+dev = [
+    "pytest>=8.0.0",
+    "black>=24.0.0",
+    "ruff>=0.3.0",
+]
+
+[tool.pytest.ini_options]
+# Configures pytest to look into the tests directory
+testpaths = ["tests"]
+pythonpath = ["src"]
+
+[tool.black]
+# Configures the code formatter code styles
+line-length = 88
+target-version = ['py310']
