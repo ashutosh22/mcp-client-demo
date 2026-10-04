@@ -4,6 +4,9 @@ from mcp.client.streamable_http import streamable_http_client as http_client
 from src.config.settings import settings, setup_logging
 from src.client.client import McpClient
 from src.models.requests import ForecastRequest
+from src.agent.graph import create_agent_graph
+# Everything else in main.py remains exactly the same!
+
 
 setup_logging()
 logger = logging.getLogger("mcp-agent.main")
@@ -12,7 +15,8 @@ logger = logging.getLogger("mcp-agent.main")
 async def main():
     logger.info(f"Connecting to containerized streamable server at: {settings.SERVER_URL}")
     client = McpClient()
-
+    agent_graph = create_agent_graph()
+    
     try:
         # Step 1: Open the HTTP transport layer stream
         async with http_client(settings.SERVER_URL) as (read_stream, write_stream):

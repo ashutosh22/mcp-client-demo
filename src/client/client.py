@@ -2,10 +2,10 @@ import logging
 from contextlib import asynccontextmanager
 
 from mcp import ClientSession
-from mcp.client.streamable_http import streamable_http_client as http_client
 from mcp.types import CallToolResult
+
 from src.config.settings import settings
-from src.models.requests import ForecastRequest
+from src.models.requests import ForecastRequest, AlertsRequest
 
 logger = logging.getLogger("mcp-agent.client")
 
@@ -64,3 +64,9 @@ class McpClient:
             arguments=request_data.model_dump()
         )
         return result
+
+    async def get_alerts(self, request_data: AlertsRequest) -> CallToolResult:
+        """💡 Invokes the get_alerts tool with a validated request body."""
+        if not self._session:
+            raise RuntimeError("Cannot execute tool call. Client session is not active.")
+        return await self._session.call_tool(name="get_alerts", arguments=request_data.model_dump())
